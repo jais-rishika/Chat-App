@@ -1,24 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
-
+//import Dashboard from "./layout/Dashboard/dashboard"
+import SetTheme from "./theme/setTheme";
+import { SettingsProvider } from './context/settingContext';
+import Router  from './Router/index';
 function App() {
+  // Assuming you have a value you want to store
+const valueToStore = "Hello, localStorage!";
+
+// Save the value in local storage
+localStorage.setItem('myValue', valueToStore);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    //must wrap the main component inside the contextProvider
+    
+      <SetTheme>
+        <Router/>
+      </SetTheme>
+   
   );
 }
 
