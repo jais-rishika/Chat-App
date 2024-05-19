@@ -1,8 +1,8 @@
 import React from 'react';
-import {Box,IconButton,Stack,Typography,} from "@mui/material";
+import {Box,Stack} from "@mui/material";
 import { useTheme } from '@emotion/react';
 import { Link,Smiley,PaperPlaneTilt } from 'phosphor-react';
-import { StyledInputBase } from '../search';
+import { StyledInputBase } from '../reusable/search';
 const Footer = () => {
     const theme=useTheme();
     return (

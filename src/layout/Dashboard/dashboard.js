@@ -3,10 +3,10 @@ import {Avatar, Box,Divider,IconButton,Stack} from '@mui/material';
 import { Gear } from 'phosphor-react';
 import logo from "../../assets/images/logo.jpeg";
 import {navitems} from './navitems';
-import pfp from "../../assets/images/pfp.jpg"
+//import pfp from "../../assets/images/pfp.jpg"
 import { useTheme } from "@mui/material/styles";
 import useSettings from '../../hooks/useSettings';
-import AntSwitch from '../../components/AntSwitch';
+import AntSwitch from '../../components/reusable/AntSwitch';
 import { faker } from "@faker-js/faker";
 
   console.log("Dashboard")
@@ -35,7 +35,7 @@ const Sidebar = () => {
                         height: 'max-content',
                         width: 'max-content',
                     }}>
-                        <Avatar src={logo} sx={{}}></Avatar>
+                        <Avatar src={logo}></Avatar>
                     </Box>
                 <Stack
                     m={2}

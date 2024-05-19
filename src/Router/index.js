@@ -4,10 +4,15 @@
 //also using Lazy and suspense
 import { Navigate, useRoutes } from 'react-router-dom';
 import DashboardLayout from "../layout/index"
-import { DEFAULT_PATH } from '../config';
-import LoadingScreen from '../components/loading';
+import AuthLayout from '../layout/Auth';
+import { DEFAULT_PATH, AUTH_DEFAULT } from '../config';
+import LoadingScreen from '../components/reusable/loading';
 import { Suspense, lazy } from 'react';
-
+import LoginPage from '../pages/authenticationPages/loginPage';
+import RegisterPage from '../pages/authenticationPages/registerPage';
+import ResetPassword from '../pages/authenticationPages/resetPasswordPage';
+import NewPasswordPage from '../pages/authenticationPages/newPasswordPage';
+import VerifyOTPPage from '../pages/authenticationPages/verifyOTPPage';
 const Loading=(Components)=>(props)=>{
     return(
         <Suspense fallback={<LoadingScreen/>}>
@@ -17,7 +22,21 @@ const Loading=(Components)=>(props)=>{
     );
 };
 const Router = () => {
-    return useRoutes([{
+    return useRoutes([
+    {
+            path: "/auth",
+            element: <AuthLayout />,
+            children: [
+              { element: <Navigate to={AUTH_DEFAULT} replace /> },
+              { path: "login", element: <LoginPage /> },
+              { path: "register", element: <RegisterPage /> },
+              { path: "reset-password", element: <ResetPassword /> },
+              { path: "new-password", element: <NewPasswordPage /> },
+              { path: "verify", element: <VerifyOTPPage /> },
+            ],
+    },
+    
+    {
         path:'/',
         element: <DashboardLayout/>,
         children: [

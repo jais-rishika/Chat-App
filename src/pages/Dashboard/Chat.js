@@ -1,7 +1,7 @@
 import React from 'react';
-import {Stack,Box,Typography,IconButton,InputBase, Divider } from '@mui/material';
+import {Stack,Box,Typography,IconButton, Divider } from '@mui/material';
 import {CircleDashed, MagnifyingGlass, ArchiveBox } from 'phosphor-react';
-import { Search ,SearchIconWrapper ,StyledInputBase} from '../../components/search';
+import { Search ,SearchIconWrapper ,StyledInputBase} from '../../components/reusable/search';
 import { useTheme } from '@emotion/react';
 import {ChatList}from '../../Data/data';
 import {ChatElements,CustomScrollbar} from '../../components/ChatElements';
@@ -13,7 +13,6 @@ const Chat = () => {
                 position: 'relative',
                 height: "100vh",
                 width: 300,
-                backgroundColor: "#F8FAFF",
                 backgroundColor: 
                     theme.palette.mode==='light'?  "#F8FAFF"
                     : theme.palette.background.paper,

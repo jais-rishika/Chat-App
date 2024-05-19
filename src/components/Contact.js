@@ -1,15 +1,19 @@
 import React from 'react';
-import {Box, Avatar, Stack , ImageIcon ,Typography ,Divider, IconButton} from '@mui/material';
+import {Box, Avatar, Stack ,Typography ,Divider, IconButton, Button} from '@mui/material';
 import {PhoneCall ,VideoCamera ,X,Star,Bell, Prohibit ,Trash,CaretRight } from 'phosphor-react';
-import AntSwitch from './AntSwitch';
+import AntSwitch from './reusable/AntSwitch';
 import { CustomScrollbar } from './ChatElements';
 import {faker} from '@faker-js/faker';
 import { useTheme } from '@emotion/react';
+import { ToggleSideBar, UpdateSidebarType } from "../redux/slices/app";
+import { dispatch } from '../redux/store';
 const Contact = () => {
     const theme=useTheme();
+    
     return (
         <Box sx={{ width:'320px',
         height:'100vh',
+        borderLeft: theme.palette.mode === "light"? '2px solid LightGrey':'2px solid #222021',
         backgroundColor: 
         theme.palette.mode==='light'?  "#F8FAFF"
         : theme.palette.background.paper,
@@ -18,9 +22,13 @@ const Contact = () => {
             width:'100%',
             height:'100vh',
             }}>
-                <Stack direction="row" p={2} sx={{justifyContent:"space-between", alignItems:'center',borderBottom: theme.palette.mode === "light"? '2px solid LightGrey':'', height: '9%'}}>
-                    <Typography variant="h5">Contact</Typography>
-                    <IconButton><X size={32} /></IconButton>
+                <Stack direction="row" p={2} sx={{justifyContent:"space-between", alignItems:'center',borderBottom: theme.palette.mode === "light"? '2px solid LightGrey':'2px solid #222021', height: '9%'}}>
+                    <Typography variant="article">Contact</Typography>
+                    <IconButton onClick={() => {
+                        dispatch(ToggleSideBar());
+                    }}>
+                        <X size={32} />
+                    </IconButton>
                 </Stack>
 
                 <CustomScrollbar style={{ overflowY: 'scroll' }}>
@@ -35,8 +43,8 @@ const Contact = () => {
                         </Stack>
 
                         <Stack direction="row"  p={2} sx={{justifyContent:"space-around", alignItems:'center'}}>
-                            <PhoneCall size={36} />
-                            <VideoCamera size={36} />
+                            <IconButton> <PhoneCall size={36} /></IconButton>
+                            <IconButton> <VideoCamera size={36} /> </IconButton>
                         </Stack>
 
                         <Divider/>
@@ -53,8 +61,13 @@ const Contact = () => {
                                 <Typography variant='body1'>Media,Links,Docs</Typography>
 
                                 <Stack direction='row' sx={{justifyContent:"center", alignItems:'center'}}>
-                                    <Typography variant='body1'>121</Typography>
-                                    <CaretRight size={20} color="#3660c4" weight="bold" />
+                                    <IconButton
+                                        onClick={()=>{
+                                            dispatch(UpdateSidebarType("MEDIA"));
+                                        }}>
+                                        <CaretRight size={20} color="#3660c4" weight="bold"/> 
+                                    </IconButton>
+                                    121  
                                 </Stack>
                             </Stack>
 
@@ -69,18 +82,18 @@ const Contact = () => {
 
                         <Stack direction="row"  p={2} spacing={2} sx={{justifyContent:"space-between", alignItems:'center'}}>
                                 <Stack direction="row" spacing={0.5} sx={{justifyContent:"left", alignItems:'center'}}>
-                                    <Star size={32} />
+                                    <IconButton> <Star size={30} /> </IconButton>
                                     <Typography variant='body1'>Starred Messages</Typography>
                                 </Stack>
 
-                                <CaretRight size={20} color="#3660c4" weight="bold" />
+                                <IconButton> <CaretRight size={20} color="#3660c4" weight="bold" /> </IconButton>
                         </Stack>
 
                         <Divider/>
 
                         <Stack direction="row" p={2} spacing={0.5} sx={{justifyContent:"space-between", alignItems:'center'}}>
                             <Stack direction="row" spacing={0.5} sx={{justifyContent:"left", alignItems:'center'}}>
-                                <Bell size={32} />
+                                <IconButton> <Bell size={30} /> </IconButton>
                                 <Typography variant='body1'>Mute Notifications</Typography>
                             </Stack>
                             <AntSwitch/>
@@ -90,35 +103,32 @@ const Contact = () => {
 
                         <Stack direction="column" p={2} >
                             <Typography variant='body1'>One group in common</Typography>
-
                             <Stack direction="row" spacing={2} sx={{justifyContent:"left", alignItems:'center'}}>
                                 <Avatar src={faker.image.avatar()}/>
-
                                 <Stack direction="column" p={1} sx={{justifyContent:"center", alignItems:'left'}}>
                                     <Typography variant='subtitle1'>Friends</Typography>
                                     <Typography variant='subtitle2'>Rajan,Taniya,Rishika,Tanu</Typography>
                                 </Stack>
                             </Stack>
-
                             <Stack direction="row" p={2} spacing={2} sx={{justifyContent:"space-between", alignItems:'center'}}>
-                                <Stack direction='row' sx={{justifyContent:"space-between", alignItems:'center',color:'#3660c4', border:"1px solid", paddingRight:'10px'}} >
-                                    <IconButton><Prohibit size={16} color="#3660c4" /></IconButton>
-                                    <Typography>Block</Typography>
+                                <Stack direction='row' sx={{justifyContent:"space-between", alignItems:'center',color:'#3660c4', border:"1px solid", paddingRight:'10px'}}>
+                                    <Button>
+                                        <IconButton><Prohibit size={16} color="#3660c4" /></IconButton>
+                                        <Typography>Block</Typography>
+                                    </Button>
                                 </Stack>
-
                                 <Stack direction='row' sx={{justifyContent:"space-between", alignItems:'center',color:'#3660c4', border:"1px solid", paddingRight:'10px'}} >
-                                    <IconButton><Trash size={16} color="#3660c4" /></IconButton>
-                                    <Typography>Clear</Typography>
+                                    <Button>
+                                        <IconButton><Trash size={16} color="#3660c4" /></IconButton>
+                                        <Typography>Clear</Typography>
+                                    </Button>
                                 </Stack>
                             </Stack>
-
                         </Stack>
                     </Stack>
-
                 </CustomScrollbar>
             </Stack>
         </Box>
     );
 }
-
 export default Contact;

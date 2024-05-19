@@ -1,7 +1,7 @@
 import {useTheme } from '@emotion/react';
 import {Box, Stack ,Avatar, Typography ,Badge} from '@mui/material';
 import {styled} from '@mui/material/styles';
-import StyledBadge from './StyledBadge';
+import StyledBadge from './reusable/StyledBadge';
 
 export const CustomScrollbar = styled('div')({
   '&::-webkit-scrollbar': {
@@ -14,7 +14,7 @@ export const CustomScrollbar = styled('div')({
   },
   '&::-webkit-scrollbar-track': {
     backgroundColor: 'transparent', // Color of the scrollbar track
-    borderRadius: '6px', // Border radius of the scrollbar track
+    //borderRadius: '2px', // Border radius of the scrollbar track
   },
 });
 

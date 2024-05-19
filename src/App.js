@@ -1,7 +1,6 @@
 import './App.css';
 //import Dashboard from "./layout/Dashboard/dashboard"
 import SetTheme from "./theme/setTheme";
-import { SettingsProvider } from './context/settingContext';
 import Router  from './Router/index';
 function App() {
   // Assuming you have a value you want to store

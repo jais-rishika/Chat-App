@@ -7,10 +7,12 @@ const path=(root,link)=>{
 }
 
 const ROOT_DASHBOARD='/';
+const AUTH_DASHBOARD="/auth"
 
 export const PATHDASHBOARD={
     root: ROOT_DASHBOARD,
     general: {
-        app: path(ROOT_DASHBOARD,"app")
+        app: path(ROOT_DASHBOARD,"app"),
+        login: path(AUTH_DASHBOARD, "/login"),
     }
 }
