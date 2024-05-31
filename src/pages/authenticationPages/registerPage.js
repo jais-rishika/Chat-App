@@ -3,7 +3,13 @@ import {Link, Stack,Typography} from '@mui/material';
 import {NavLink} from 'react-router-dom'
 import AuthSocial from '../../sections/Authentication/authSocial';
 import RegisterForm from '../../sections/Authentication/registerForm';
+import { useSelector } from 'react-redux';
+import { CloseSnackBar } from '../../redux/slices/app';
+import SnackBarIntegration from '../../components/SnackBar';
 const RegisterPage=()=> {
+    const { openSnackBar, snackBarMessage, snackBarSeverity } = useSelector(
+        (state) => state.app
+      );
     return (  
         <>
             <Stack direction="column" spacing={2} sx={{mt:2}}>
@@ -34,7 +40,14 @@ const RegisterPage=()=> {
                 </Typography>
 
                 <AuthSocial/>
-                
+                {openSnackBar && (
+                <SnackBarIntegration
+                open={openSnackBar}
+                severity={snackBarSeverity}
+                message={snackBarMessage}
+                CloseSnackBar={CloseSnackBar}
+                />
+            )}
             </Stack>
         </>
     );

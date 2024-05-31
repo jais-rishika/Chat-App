@@ -7,7 +7,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useTheme } from "@emotion/react";
 import CustomCodeField from "../../react-hook-form/CustomCodeField";
+import { useDispatch ,useSelector } from "react-redux";
+import { VerifyEmail } from "../../redux/slices/auth";
+import ProgressBarIntegration from "../../components/ProgressBar";
+
 const VerifyOTPForm=()=> {
+    const {isLoading} =useSelector((state)=> state.auth)
+    const {email} =useSelector((state)=> state.auth)
+    const dispatch=useDispatch()
     const theme=useTheme();
     const verifyOTPSchema=Yup.object().shape({
         code1: Yup.string().required("Input is required"),
@@ -39,7 +46,12 @@ const VerifyOTPForm=()=> {
 
     const onSubmit=async(data)=>{
         try{
-
+            dispatch(
+                VerifyEmail({
+                  email,
+                  otp: `${data.code1}${data.code2}${data.code3}${data.code4}${data.code5}${data.code6}`,
+                })
+              );
         }
         catch(err){
             reset()
@@ -55,7 +67,7 @@ const VerifyOTPForm=()=> {
                 keyName="code"
                 inputs={["code1", "code2", "code3", "code4", "code5", "code6"]}
                 />
-                <Button sx={{
+                <Button type="submit" sx={{
                     bgcolor: "text.primary",
                     color: (theme)=>
                     theme.palette.mode==="light"? "common.white":"grey.800",
@@ -64,7 +76,10 @@ const VerifyOTPForm=()=> {
                         color: (theme)=>
                         theme.palette.mode==="light"? "common.white":"grey.800",
                     }
-                }}>VERIFY</Button>
+                }}>
+                {isLoading ? "Please wait..." : "VERIFY"}
+                    </Button>
+                {isLoading && <ProgressBarIntegration isLoading={isLoading} />}
                 
             </Stack>
         </FormProvider>

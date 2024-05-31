@@ -9,7 +9,6 @@ CustomTextField.propTypes={
 
 export default function CustomTextField({name,helperText,...other}){
 const {control } =useFormContext();
-console.log("control " + control)
 return(
     <Controller
 
