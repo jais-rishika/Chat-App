@@ -1,7 +1,7 @@
 import { combineReducers } from "@reduxjs/toolkit"
 import appReducer from "./slices/app"
 import storage from "redux-persist/lib/storage";
-
+import authReducer from "./slices/auth"
 const parentPersistConfig={
     key: "root",
     storage,
@@ -9,6 +9,7 @@ const parentPersistConfig={
 }
 const parentReducer =combineReducers({
     app: appReducer,
+    auth: authReducer,
 })
 
 export {parentPersistConfig , parentReducer};

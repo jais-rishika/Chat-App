@@ -7,9 +7,13 @@ import FormProvider from '../../react-hook-form/FormProvider'
 import CustomTextField from '../../react-hook-form/CustomTextField'
 import { Eye, EyeClosed } from 'phosphor-react'
 import { useTheme } from '@emotion/react'
-
+import { RegisterUser } from '../../redux/slices/auth'
+import { useDispatch,useSelector } from 'react-redux'
+import ProgressBarIntegration from '../../components/ProgressBar'
 const RegisterForm=()=> {
     const theme=useTheme();
+    const dispatch=useDispatch()
+    const isLoading=useSelector((state)=>state.auth)
     //schema
     const RegisterSchema=Yup.object().shape({
         email: Yup.string()
@@ -42,7 +46,9 @@ const RegisterForm=()=> {
     //business logic
     const onSubmit=async(data)=>{
         try{
-
+            const email=data.email
+            const password=data.password
+            dispatch(RegisterUser({email,password}))
         }
         catch(err){
             reset();
@@ -85,15 +91,21 @@ const RegisterForm=()=> {
                         )
                     }}
                     />
-                <Button sx={{
+                <Button type="submit" sx={{
                     bgcolor: "text.primary",
                     color: (theme)=>
-                    theme.palette.mode==="light"? "common.white":"grey.800"
+                    theme.palette.mode==="light"? "common.white":"grey.800",
+                    "&:hover": {
+                        bgcolor:"text.primary",
+                        color: (theme) =>
+                            theme.palette.mode === "light" ? "common.white" : "grey.800",
+                    },
                 }}
                     
                 >
-                    REGISTER
+                    {isLoading ? "Please wait..." : "Register"}
                 </Button>
+                {isLoading && <ProgressBarIntegration isLoading={isLoading} />}
             </Stack>
         </FormProvider>
         </>
