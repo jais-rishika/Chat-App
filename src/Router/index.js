@@ -13,7 +13,6 @@ import RegisterPage from '../pages/authenticationPages/registerPage';
 import ResetPassword from '../pages/authenticationPages/resetPasswordPage';
 import NewPasswordPage from '../pages/authenticationPages/newPasswordPage';
 import VerifyOTPPage from '../pages/authenticationPages/verifyOTPPage';
-import CreateProfile from '../pages/authenticationPages/createProfile';
 const Loading=(Components)=>(props)=>{
     return(
         <Suspense fallback={<LoadingScreen/>}>
@@ -34,7 +33,6 @@ const Router = () => {
               { path: "reset-password", element: <ResetPassword /> },
               { path: "new-password", element: <NewPasswordPage /> },
               { path: "verify", element: <VerifyOTPPage /> },
-              { path: "create-profile", element: <CreateProfile /> },
             ],
     },
     

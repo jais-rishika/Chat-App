@@ -2,17 +2,13 @@ import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from "react-hook-form"
 import { useState } from 'react'
-import { Stack, Alert,InputAdornment, IconButton, Button, Box} from '@mui/material'
+import { Stack, Alert,InputAdornment, IconButton, Button } from '@mui/material'
 import FormProvider from '../../react-hook-form/FormProvider'
 import CustomTextField from '../../react-hook-form/CustomTextField'
 import { Eye, EyeClosed } from 'phosphor-react'
 import { useTheme } from '@emotion/react'
-import { useDispatch,useSelector } from 'react-redux'
-import { RegisterUser } from '../../redux/slices/auth'
-import ProgressBarIntegration from '../../components/ProgressBar'
 
 const RegisterForm=()=> {
-    const dispatch=useDispatch()
     const theme=useTheme();
     //schema
     const RegisterSchema=Yup.object().shape({
@@ -30,15 +26,10 @@ const RegisterForm=()=> {
             )
     })
     //default values
-    const defaultValues={
-        email: "",
-        password: "",
-        confirmPassword: ""
-    }
+    
     //resolver
     const methods=useForm({
-        resolver: yupResolver(RegisterSchema),
-        defaultValues
+        resolver: yupResolver(RegisterSchema)
     })
     //destructure
     const {
@@ -51,8 +42,7 @@ const RegisterForm=()=> {
     //business logic
     const onSubmit=async(data)=>{
         try{
-            const {email, password}=data
-            dispatch(RegisterUser({email,password}))
+
         }
         catch(err){
             reset();
@@ -60,8 +50,7 @@ const RegisterForm=()=> {
         }
     }
     //useState
-    const [showPassword,setShowPassword]=useState(false)
-    const {isLoading} =useSelector((state)=> state.auth)
+    const [showPassword,setShowPassword]=useState("false")
     return ( 
         <>
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -96,21 +85,15 @@ const RegisterForm=()=> {
                         )
                     }}
                     />
-                    <Button type="submit" sx={{
-                        bgcolor: "text.primary",
-                        color: (theme)=>
-                        theme.palette.mode==="light"? "common.white":"grey.800",
-                        "&:hover": {
-                            bgcolor:"text.primary",
-                            color: (theme) =>
-                                theme.palette.mode === "light" ? "common.white" : "grey.800"
-                        },
-                    }}
-                        
-                    >
-                    {isLoading ? "Please wait..." : "REGISTER"}
-                    </Button>
-                    {isLoading && <ProgressBarIntegration isLoading={isLoading} />}
+                <Button sx={{
+                    bgcolor: "text.primary",
+                    color: (theme)=>
+                    theme.palette.mode==="light"? "common.white":"grey.800"
+                }}
+                    
+                >
+                    REGISTER
+                </Button>
             </Stack>
         </FormProvider>
         </>

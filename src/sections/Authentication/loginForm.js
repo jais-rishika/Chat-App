@@ -8,15 +8,9 @@ import { useState } from "react";
 import { Eye, EyeClosed } from "phosphor-react";
 import { NavLink } from "react-router-dom";
 import { useTheme } from "@emotion/react";
-import { useDispatch,useSelector } from 'react-redux'
-import { loginUser } from '../../redux/slices/auth'
-import ProgressBarIntegration from '../../components/ProgressBar'
 
 const LoginForm=()=>{
-    
     const theme=useTheme();
-    const dispatch=useDispatch()
-    const isLoading= useSelector((state)=> state.auth)
     //created schema
     const LoginSchema=Yup.object().shape({
         email: Yup.string()
@@ -28,8 +22,8 @@ const LoginForm=()=>{
     })
     //declared default values
     const defaultValues={
-        email: "",
-        password: ""
+        email: "demousr@gmail.com",
+        password: "demo1234"
     }
     //resolving values
     const methods=useForm({
@@ -47,7 +41,7 @@ const LoginForm=()=>{
     //Bussiness logic on what do do when form correct and submitted
     const onSubmit=async(data)=>{
         try{
-            dispatch(loginUser(data));
+
         }
         catch(err){
         reset();
@@ -55,7 +49,7 @@ const LoginForm=()=>{
         } 
     }
 
-    const[showPassword,setShowPassword]=useState(false);
+    const[showPassword,setShowPassword]=useState("false");
     return(
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing={3}>
@@ -76,7 +70,7 @@ const LoginForm=()=>{
                         
                     }} />
                     <Link to="/auth/reset-password" component={NavLink} variant="subtitle2" textAlign="right"> Forgot Password?</Link>
-                    <Button type= "submit" sx={{
+                    <Button sx={{
                         bgcolor:"text.primary",
                         color: (theme) =>
                         theme.palette.mode === "light" ? "common.white" : "grey.800",
@@ -86,9 +80,8 @@ const LoginForm=()=>{
                             theme.palette.mode === "light" ? "common.white" : "grey.800",
                         },
                     }}>
-                    {isLoading ? "Please wait..." : "LOGIN"}
+                        LOGIN
                     </Button>
-                    {isLoading && <ProgressBarIntegration isLoading={isLoading} />}
             </Stack>
         </FormProvider>
     )
