@@ -24,7 +24,11 @@ export default function SnackBarIntegration({
         }}
         sx={{ width: "100%" }}
       >
-        {message}
+        {Object.keys(message).map((key, index) => (
+          <div key={index}>
+            {key}: {message[key]}
+          </div>
+        ))}
       </Alert>
     </Snackbar>
   );

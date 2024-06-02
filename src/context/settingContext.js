@@ -5,10 +5,8 @@ const initialState={...defaultSettings,onToggleMode:()=>{},}
 
 const SettingsContext=createContext(initialState);
 const SettingsProvider = ({children}) => {
-    console.log("settingcontext");
     const [settings,setSettings]=useLocalStorage("settings",{themeMode: initialState.themeMode})
     const onToggleMode=()=>{
-        console.log("toggle")
         setSettings({
             ...settings,
             themeMode: settings.themeMode==="light"?"dark":"light",

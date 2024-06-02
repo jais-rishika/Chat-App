@@ -9,7 +9,6 @@ import { CssBaseline } from "@mui/material";
 //   };
 
 export default function SetTheme({children}){
-    console.log("setTheme")
     const {themeMode} =useSettings()
     const isLight= themeMode==="light";
     const themeOptions=useMemo(()=>({

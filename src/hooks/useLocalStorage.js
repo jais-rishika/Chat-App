@@ -1,7 +1,6 @@
 import { useState ,useEffect} from 'react';
 
 export default function useLocalStorage(Key, defaultValue){
-    console.log("localhook");
     const[value,setValue]=useState(()=>{
         const storedValue=localStorage.getItem(Key);
         return storedValue===null?defaultValue : JSON.parse(storedValue);

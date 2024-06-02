@@ -12,14 +12,7 @@ export default function CreateProfile() {
     <Stack>
      <Typography align='center' variant="h4" sx={{mt: 3}}>Create Profile</Typography>
      <CreateProfileForm/>
-        {openSnackBar && (
-            <SnackBarIntegration
-            open={openSnackBar}
-            severity={snackBarSeverity}
-            message={snackBarMessage}
-            CloseSnackBar={CloseSnackBar}
-            />
-        )}
+        
       </Stack>
   )
 }

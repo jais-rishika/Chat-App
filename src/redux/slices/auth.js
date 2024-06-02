@@ -1,12 +1,11 @@
 import axios from '../../utils/axios'
 import { createSlice } from "@reduxjs/toolkit";
 import { OpenSnackBar,SnackBarSeverity,SnackBarMessage } from './app';
-import profile from "../../assets/images/profile.jpg";
 
 //initial state
 const initialState={
   isLoggedIn: false,
-  profileImageUrl:{profile},
+  profileImageUrl:"https://res.cloudinary.com/ddncw4pqb/image/upload/v1717325773/samples/profile/profile_gvqm00.jpg",
   token: "",
   email: "",
   isLoading: false
@@ -85,24 +84,45 @@ export function loginUser(formValues){
             }
         )
         .then((resp)=>{
+          console.log(resp.data.url)
+          if(resp.data.url){
+            dispatch(
+              slice.actions.updateProfileUrl({
+                profileImageUrl: resp.data.url
+              })
+            )
+          }
+          else{
+            dispatch(
+              slice.actions.updateProfileUrl({
+                profileImageUrl: "https://res.cloudinary.com/ddncw4pqb/image/upload/v1717325773/samples/profile/profile_gvqm00.jpg"
+              })
+            )
+          }
             dispatch(
                 slice.actions.login({
                     isLoggedIn: true,
                     token: resp.data.token
                 })
             )
-            console.log(resp);
+            dispatchSnackBar(dispatch,resp,"success")
+            dispatchIsLoading(dispatch, false)
+
+            window.location.href="/app"
         })
         .catch((err)=>{
             console.log(err);
+            dispatchSnackBar(dispatch,err,"error")
+            dispatchIsLoading(dispatch, false)
         })
     }
 }
 
 //logout user
-export function logOut(){
+export function logOutUser(){
     return async(dispatch,getState)=>{
         dispatch(slice.actions.logout())
+        window.location.href="/auth/login"
     }
 }
 
@@ -227,7 +247,7 @@ export function NewPassword(formValues) {
     return async(dispatch,getState)=>{
       dispatchIsLoading(dispatch,true)
       axios.post(
-        "/api/v1/create-profile",
+        "/api/v1/auth/create-profile",
         {...formValues},
         {
           headers: {
@@ -246,7 +266,7 @@ export function NewPassword(formValues) {
         }))
           dispatchSnackBar(dispatch, resp, "success");
           dispatchIsLoading(dispatch, false);
-          
+          window.location.href="/app"
       })
       .catch((err)=>{
         console.log(err)

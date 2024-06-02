@@ -3,9 +3,11 @@ import { faker } from "@faker-js/faker";
 
 const Profile_Options = [
   {
+    index: 0,
     title: "Edit Profile",
   },
   {
+    index: 1,
     title: "Logout",
   },
 ];

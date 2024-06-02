@@ -51,7 +51,7 @@ export default function CreateProfileForm() {
 
     const previewFile=(file)=>{
         const reader=new FileReader();
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(file)
         reader.onloadend =()=>{
             setSelectedImage(reader.result)
         };
