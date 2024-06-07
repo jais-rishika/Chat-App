@@ -10,7 +10,7 @@ import ProgressBarIntegration from '../../components/ProgressBar'
 import { CreateProfile } from '../../redux/slices/auth'
 
 export default function CreateProfileForm() {
-    const {isLoading, email}=useSelector((state)=>state.auth)
+    const {isLoading, email }=useSelector((state)=>state.auth)
     const dispatch=useDispatch()
 
     const createProfileSchema=Yup.object().shape({
@@ -93,8 +93,8 @@ export default function CreateProfileForm() {
                     alt="Selected Image"
                 />
             </label>
-        <CustomTextField name="name" label="name"/>
-        <CustomTextField name="about" label="about"/>
+        <CustomTextField name="name" label="name" />
+        <CustomTextField name="about" label="about" />
     </Stack>
     </Stack>
     <Box sx={{ m: 1, position: "relative" }}>

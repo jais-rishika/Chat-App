@@ -8,7 +8,9 @@ const initialState={
   profileImageUrl:"https://res.cloudinary.com/ddncw4pqb/image/upload/v1717325773/samples/profile/profile_gvqm00.jpg",
   token: "",
   email: "",
-  isLoading: false
+  isLoading: false,
+  name:"",
+  about:""
 }
 //create slice
 const slice=createSlice({
@@ -23,10 +25,6 @@ const slice=createSlice({
             state.isLoggedIn= false;
             state.token="";
         },
-        logout(state, action) {
-            state.isLoggedIn = false;
-            state.token = "";
-          },
         updateEmail(state, action) {
             state.email = action.payload.email;
         },
@@ -35,6 +33,12 @@ const slice=createSlice({
         },
         updateProfileUrl(state, action) {
             state.profileImageUrl = action.payload.profileImageUrl;
+        },
+        updateName(state, action) {
+          state.name = action.payload.name;
+        },
+        updateAbout(state, action) {
+          state.about = action.payload.about;
         },
     }
 })
@@ -259,6 +263,13 @@ export function NewPassword(formValues) {
         console.log(resp);
         if(resp.data.url){
           dispatch(slice.actions.updateProfileUrl({profileImageUrl: resp.data.url}))
+          dispatch(slice.actions.updateName({name: resp.data.name}))
+          dispatch(slice.actions.updateAbout({about: resp.data.about}))
+        }
+        else{
+          dispatch(slice.actions.updateProfileUrl({profileImageUrl: "https://res.cloudinary.com/ddncw4pqb/image/upload/v1717325773/samples/profile/profile_gvqm00.jpg"}))
+          dispatch(slice.actions.updateName({name: resp.data.name}))
+          dispatch(slice.actions.updateAbout({about: resp.data.about}))
         }
         dispatch(slice.actions.login({
           isLoggedIn: true,
@@ -276,4 +287,40 @@ export function NewPassword(formValues) {
 
       }
     }
+
+    export function DeleteUser(formValues){
+      return async(dispatch,getState)=>{
+        dispatchIsLoading(dispatch,true)
+        axios
+        .post(
+          "/api/v1/app/delete-account",
+          {...formValues},
+          {
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }
+        )
+        .then((resp)=>{
+          dispatch(
+            slice.actions.updateProfileUrl({
+              profileImageUrl: "https://res.cloudinary.com/ddncw4pqb/image/upload/v1717325773/samples/profile/profile_gvqm00.jpg"
+            })
+          )
+          dispatch(slice.actions.logout())
+          dispatch(slice.actions.updateAbout({about: ""}))
+          dispatch(slice.actions.updateName({name: ""}))
+          dispatch(slice.actions.updateEmail({email: ""}))
+
+          dispatchSnackBar(dispatch, resp, "error");
+          dispatchIsLoading(dispatch, false);
+          window.location.href="/auth/register"
+        })
+        .catch((err) => {
+          console.log(err);
+          dispatchSnackBar(dispatch, err, "error");
+          dispatchIsLoading(dispatch, false);
+        });
+      }
+  }
   

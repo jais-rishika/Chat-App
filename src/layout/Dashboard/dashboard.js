@@ -1,25 +1,19 @@
 import { useState } from 'react';
-import {Avatar, Box,Divider,IconButton,Menu,MenuItem,Stack} from '@mui/material';
+import {Avatar, Box,Divider,IconButton,Stack} from '@mui/material';
 import { Gear } from 'phosphor-react';
 import logo from "../../assets/images/logo.jpeg";
 import {navitems} from './navitems';
 import { useTheme } from "@mui/material/styles";
 import useSettings from '../../hooks/useSettings';
 import AntSwitch from '../../components/reusable/AntSwitch';
-import {Profile_Options} from '../../Data/data'
-import {useDispatch, useSelector} from "react-redux"
-import { logOutUser } from '../../redux/slices/auth';
+import {useSelector} from "react-redux"
+import { useNavigate } from 'react-router-dom';
+
 const Sidebar = () => {
-    
-    const dispatch=useDispatch()
-    const [anchorEl,setAnchorEl]=useState(null)
-    const handleClick= (event)=>{
-        setAnchorEl(event.currentTarget)
+    const navigate=useNavigate()
+    const handleClick= ()=>{
+        navigate("/profile")
     }
-    const handleClose= ()=>{
-        setAnchorEl(null)
-    }
-    const open=Boolean(anchorEl)
     const[selected,setSelected]=useState(0);
     const theme = useTheme();
     const { onToggleMode }=useSettings();
@@ -57,9 +51,10 @@ const Sidebar = () => {
                     >
                     <Stack>
                         {navitems.map((ele) =>
+                            
                             ele.index===selected?
                             (
-                                <Box sx={{
+                                <Box  sx={{
                                     backgroundColor:theme.palette.primary.main,
                                     borderRadius: "25%",
                                     width: 'max-content'
@@ -111,43 +106,10 @@ const Sidebar = () => {
                             />
                         <Avatar src={profileImageUrl} 
                             id="basic-button"
-                            aria-controls={open? "basic-menu": undefined}
-                            aria-haspopup="true"
-                            aria-expanded={open? "true":undefined}
                             onClick={handleClick}
                             sx={{cursor: "pointer"}}
                         />
-                        <Menu
-                            id="basic-menu"
-                            anchorEl={anchorEl}
-                            open={open}
-                            onClose={handleClose}
-                            MenuListProps={{
-                                "aria-labelledby": "basic-button",
-                            }}
-                            transformOrigin={{
-                                vertical: "bottom",
-                                horizontal: "left",
-                            }}
-                            anchorOrigin={{
-                                vertical: "bottom",
-                                horizontal: "right",
-                            }}
-                        >
-                        <Stack spacing={1} px={1}>
-                            {Profile_Options.map((ele) => (
-                            <MenuItem onClick={()=>{
-                                if(ele.index===1)
-                                {
-                                    dispatch(logOutUser())
-                                }
-                            }}>
-                                
-                                {ele.title}
-                            </MenuItem>
-                            ))}
-                        </Stack>
-                        </Menu>
+                        
                     </Stack>
                     
                 </Stack>
