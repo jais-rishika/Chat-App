@@ -103,6 +103,8 @@ export function loginUser(formValues){
               })
             )
           }
+            dispatch(slice.actions.updateAbout({about: resp.data.about}))
+            dispatch(slice.actions.updateName({name: resp.data.name}))
             dispatch(
                 slice.actions.login({
                     isLoggedIn: true,
