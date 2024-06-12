@@ -3,16 +3,15 @@ import { blue } from "@mui/material/colors";
 
 export default function ProgressBarIntegration({ isLoading }) {
   return (
-    isLoading && (
-      <CircularProgress
-        size={24}
-        sx={{
-          color: blue[500],
-          position: "absolute",
-          top: "62%",
-          left: "50%",
-        }}
-      />
-    )
+    <div style={{ position: "relative", display: "flex", flexDirection: "row", alignItems:"center", justifyContent: "flex-start" }}>
+      {isLoading && (
+        <CircularProgress
+          size={24}
+          sx={{
+            color: blue[500],
+          }}
+        />
+      )}
+    </div>
   );
 }

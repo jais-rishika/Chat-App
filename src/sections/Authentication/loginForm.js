@@ -16,7 +16,7 @@ const LoginForm=()=>{
     
     const theme=useTheme();
     const dispatch=useDispatch()
-    const isLoading= useSelector((state)=> state.auth)
+    const {isLoading}= useSelector((state)=> state.auth)
     //created schema
     const LoginSchema=Yup.object().shape({
         email: Yup.string()
@@ -87,8 +87,8 @@ const LoginForm=()=>{
                         },
                     }}>
                     {isLoading ? "Please wait..." : "LOGIN"}
-                    </Button>
                     {isLoading && <ProgressBarIntegration isLoading={isLoading} />}
+                    </Button>
             </Stack>
         </FormProvider>
     )

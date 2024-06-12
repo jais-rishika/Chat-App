@@ -78,8 +78,8 @@ const VerifyOTPForm=()=> {
                     }
                 }}>
                 {isLoading ? "Please wait..." : "VERIFY"}
-                    </Button>
                 {isLoading && <ProgressBarIntegration isLoading={isLoading} />}
+                </Button>
                 
             </Stack>
         </FormProvider>

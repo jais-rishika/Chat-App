@@ -133,31 +133,32 @@ export function logOutUser(){
 }
 
 //resetpassword
-export function resetPassword(formValues){
-    return async(dispatch,getState)=>{
-        dispatchIsLoading(dispatch, true);
-        axios
-        .post(
-            "api/v1/auth/reset-password",
-            {...formValues},
-            {headers:{"Content-Type": "application/json"}}
-        )
-        .then((resp) => {
-            console.log(resp);
-            dispatchSnackBar(dispatch, resp, "success");
-            dispatchIsLoading(dispatch, false);
-    
-          })
-          .catch((err) => {
-            console.log(err);
-            dispatchSnackBar(dispatch, err, "error");
-            dispatchIsLoading(dispatch, false);
-          });
-    }
+export function ResetPassword(formValues){
+  return async(dispatch,getState)=>{
+    dispatchIsLoading(dispatch, true);
+    axios
+    .post(
+      "api/v1/auth/forgot-password",
+      {...formValues},
+      {headers:{"Content-Type": "application/json"}}
+    )
+      .then((resp) => {
+          console.log("here")
+          console.log(resp);
+          dispatchSnackBar(dispatch, resp, "success");
+          dispatchIsLoading(dispatch, false);
+          
+        })
+        .catch((err) => {
+          console.log(err);
+          dispatchSnackBar(dispatch, err, "error");
+          dispatchIsLoading(dispatch, false);
+        });
+  }
 
 }
 
-export function NewPassword(formValues) {
+export function newPassword(formValues) {
     return async (dispatch, getState) => {
         dispatchIsLoading(dispatch, true);
       axios

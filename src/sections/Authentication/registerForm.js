@@ -109,8 +109,8 @@ const RegisterForm=()=> {
                         
                     >
                     {isLoading ? "Please wait..." : "REGISTER"}
-                    </Button>
                     {isLoading && <ProgressBarIntegration isLoading={isLoading} />}
+                    </Button>
             </Stack>
         </FormProvider>
         </>
