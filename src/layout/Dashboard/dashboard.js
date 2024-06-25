@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import {Avatar, Box,Divider,IconButton,Stack} from '@mui/material';
 import { Gear } from 'phosphor-react';
-import logo from "../../assets/images/logo.jpeg";
-import {navitems} from './navitems';
+import eyes from "../../assets/images/eyes.jpg";
+import { sidebaritems } from './sidebarItems';
 import { useTheme } from "@mui/material/styles";
 import useSettings from '../../hooks/useSettings';
 import AntSwitch from '../../components/reusable/AntSwitch';
@@ -39,7 +39,7 @@ const Sidebar = () => {
                         height: 'max-content',
                         width: 'max-content',
                     }}>
-                        <Avatar src={logo}></Avatar>
+                        <Avatar src={eyes}></Avatar>
                     </Box>
                 <Stack
                     m={2}
@@ -49,8 +49,8 @@ const Sidebar = () => {
                     sx={{ height: "100%"}}
                     spacing={2}
                     >
-                    <Stack>
-                        {navitems.map((ele) =>
+                    <Stack spacing={2}>
+                        {sidebaritems.map((ele) =>
                             
                             ele.index===selected?
                             (
@@ -76,24 +76,6 @@ const Sidebar = () => {
                                 {ele.icon}
                             </IconButton>
                             )
-                        )}
-                        <Divider sx={{width: "60px" , marginY:"1rem"}}/>
-                        {selected===3?(
-                            <Box sx={{
-                                    backgroundColor:theme.palette.primary.main,
-                                    borderRadius: "25%",
-                                    width: 'max-content'
-                                }}>
-                                <IconButton
-                                    sx={{width: "max-content", color: "#fff"}}
-                                >
-                                    <Gear size={36}/>
-                                </IconButton>
-                            </Box>
-                        ):(
-                            <IconButton onClick={()=>setSelected(3)}>
-                                <Gear size={36}/>
-                            </IconButton>
                         )}
                     </Stack>
 

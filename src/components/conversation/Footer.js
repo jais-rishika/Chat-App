@@ -5,6 +5,7 @@ import { Link,Smiley,PaperPlaneTilt } from 'phosphor-react';
 import { StyledInputBase } from '../reusable/search';
 const Footer = () => {
     const theme=useTheme();
+    const mostusedcolor=theme.palette.primary.main
     return (
         <Box sx={{
             width: "100%",
@@ -19,7 +20,7 @@ const Footer = () => {
             border: '2px', paddingX:'25px'}}>
                 <Stack direction='row' spacing={2} sx={{ alignItems: 'center',width: '100%'}}>
                     <Box sx={{backgroundColor: theme.palette.mode === "light"? "#fff": theme.palette.background.default , borderRadius: '25%' ,paddingX: '10px', paddingY: '6px'}}>
-                        <Link size={32}/>
+                        <Link size={32} color={mostusedcolor}/>
                     </Box>
                     <StyledInputBase placeholder="Write a Message..."
                             inputProps={{ "aria-label": "search" }}
@@ -28,10 +29,10 @@ const Footer = () => {
                 </Stack>
                 <Stack direction='row' spacing={2} p={2} sx={{justifyContent: 'center' ,alignItems: 'center'}}>
                     <Box sx={{backgroundColor: theme.palette.mode === "light"? "#fff": theme.palette.background.default , borderRadius: '25%' ,paddingX: '10px', paddingY: '6px'}}>
-                        <Smiley size={32}  />
+                        <Smiley size={32} color={mostusedcolor} />
                     </Box>
                     <Box sx={{backgroundColor: theme.palette.mode === "light"? "#fff": theme.palette.background.default , borderRadius: '25%' ,paddingX: '10px', paddingY: '6px'}}>
-                        <PaperPlaneTilt size={32}  /> 
+                        <PaperPlaneTilt size={32} color={mostusedcolor} /> 
                     </Box>
                 </Stack>
             </Stack>

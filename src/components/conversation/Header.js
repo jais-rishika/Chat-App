@@ -1,6 +1,6 @@
 import { useTheme } from "@emotion/react";
 import { faker } from "@faker-js/faker";
-import {Avatar, Box,Stack,Typography,Divider,} from "@mui/material";
+import {Avatar, Box,Stack,Typography,Divider,IconButton} from "@mui/material";
 import { CaretDown, MagnifyingGlass, Phone, VideoCamera } from "phosphor-react";
 import StyledBadge from "../reusable/StyledBadge";
 import { useDispatch } from "react-redux";
@@ -8,6 +8,7 @@ import { ToggleSideBar } from "../../redux/slices/app";
 const Header = () => {
     const theme=useTheme();
     const dispatch = useDispatch();
+    const mostusedcolor=theme.palette.primary.main
     return (
     <Box
       p={2}
@@ -40,11 +41,11 @@ const Header = () => {
                 </Stack>
                 
                 <Stack direction='row' spacing={3}>
-                    <VideoCamera size={30}/>
-                    <Phone size={30}/>
-                    <MagnifyingGlass size={30}/>
+                    <IconButton> <Phone size={30} color={mostusedcolor} /> </IconButton>
+                    <IconButton> <VideoCamera size={30} color={mostusedcolor}/> </IconButton>
+                    <IconButton> <MagnifyingGlass size={30} color={mostusedcolor}/> </IconButton>
                     <Divider orientation="vertical"/>
-                    <CaretDown size={30}/>
+                    <IconButton> <CaretDown size={30} color={mostusedcolor}/> </IconButton>
                 </Stack>
            </Stack> 
         </Box>

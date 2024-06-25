@@ -1,12 +1,17 @@
 import React from 'react';
-import {Stack,Box,Typography,IconButton, Divider } from '@mui/material';
-import {CircleDashed, MagnifyingGlass, ArchiveBox } from 'phosphor-react';
+import {Stack,Box,Typography,IconButton, Divider, Icon } from '@mui/material';
+import {CircleDashed, MagnifyingGlass, ArchiveBox ,PushPin} from 'phosphor-react';
 import { Search ,SearchIconWrapper ,StyledInputBase} from '../../components/reusable/search';
 import { useTheme } from '@emotion/react';
 import {ChatList}from '../../Data/data';
 import {ChatElements,CustomScrollbar} from '../../components/ChatElements';
+import {navitems} from './navitems';
+import { useState } from 'react';
+
+
 const Chat = () => {
     const theme = useTheme();
+    const[selected,setSelected]=useState(0);
     return (
         <Box
             sx={{
@@ -54,12 +59,48 @@ const Chat = () => {
                     <Typography variant="text" >Archived</Typography>
                 </Stack>
 
+                <Stack direction="row" spacing={3}>
+                    {navitems.map((ele) =>
+                            
+                            ele.index===selected?
+                            (
+                                <Stack direction="row" spacing={1} alignItems="center">
+                                    <Box sx={{
+                                        backgroundColor:theme.palette.primary.main,
+                                        borderRadius: "25%",
+                                        width: 'max-content'
+                                    }}>
+                                        <IconButton
+                                        sx={{color: "#fff"}}
+                                        key={ele.index}
+                                        >
+                                            {ele.icon}
+                                        </IconButton>
+                                    </Box>
+                                    <Typography>{ele.title}</Typography>
+                                </Stack>
+                            )
+                            :(
+                            <IconButton
+                                sx={{ width: "max-content" }}
+                                key={ele.index}
+                                onClick={()=>setSelected(ele.index)}
+                            >
+                                {ele.icon}
+                            </IconButton>
+                            )
+                        )}
+                </Stack>
+
                 <Divider />
                 
                 <CustomScrollbar style={{ overflowY: 'scroll' }}>
                 
                     <Stack>
-                        <Typography variant='subtitle2' sx={{ color: "#676767" }}>Pinned</Typography>
+                        <Stack direction="row" spacing={1}>
+                            <PushPin size={20} />
+                            <Typography variant='subtitle2' sx={{ color: "#676767" }}>Pinned</Typography>
+                        </Stack>
                         {ChatList.filter((ele)=> ele.pinned).map((ele)=>{
                             return <ChatElements {...ele} key={ele.id}/>
                         })}
