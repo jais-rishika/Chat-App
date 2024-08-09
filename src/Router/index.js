@@ -2,21 +2,21 @@
 //creating routes in this page
 
 //also using Lazy and suspense
-import { Navigate, useNavigate, useRoutes } from 'react-router-dom';
-import DashboardLayout from "../layout/index"
-import AuthLayout from '../layout/Auth';
-import { DEFAULT_PATH, AUTH_DEFAULT } from '../config';
-import LoadingScreen from '../components/reusable/loading';
 import { Suspense, lazy } from 'react';
+import { useSelector } from 'react-redux';
+import { Navigate, useNavigate, useRoutes } from 'react-router-dom';
+import LoadingScreen from '../components/reusable/loading';
+import { AUTH_DEFAULT, DEFAULT_PATH } from '../config';
+import AuthLayout from '../layout/Auth';
+import DashboardLayout from "../layout/Dashboard/index";
+import CreateProfile from '../pages/authenticationPages/createProfile';
 import LoginPage from '../pages/authenticationPages/loginPage';
+import NewPasswordPage from '../pages/authenticationPages/newPasswordPage';
 import RegisterPage from '../pages/authenticationPages/registerPage';
 import ResetPassword from '../pages/authenticationPages/resetPasswordPage';
-import NewPasswordPage from '../pages/authenticationPages/newPasswordPage';
 import VerifyOTPPage from '../pages/authenticationPages/verifyOTPPage';
-import CreateProfile from '../pages/authenticationPages/createProfile';
-import CreateProfileForm from '../sections/User/profile';
 import DeleteAccount from '../sections/User/deleteAccount';
-import { useSelector } from 'react-redux';
+import CreateProfileForm from '../sections/User/profile';
 const Loading=(Components)=>(props)=>{
     
     return(

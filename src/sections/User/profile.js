@@ -1,18 +1,16 @@
-import * as Yup from 'yup'
+import { useTheme } from '@emotion/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useForm } from 'react-hook-form'
-import { Avatar, Box, Stack , Alert, Button, Typography, IconButton, Menu, MenuItem, Fade} from '@mui/material'
+import { Alert, Avatar, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Fade, IconButton, Menu, MenuItem, Stack, Typography } from '@mui/material'
+import { CaretLeft } from 'phosphor-react'
 import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import * as Yup from 'yup'
+import ProgressBarIntegration from '../../components/ProgressBar'
 import CustomTextField from '../../react-hook-form/CustomTextField'
 import FormProvider from '../../react-hook-form/FormProvider'
-import ProgressBarIntegration from '../../components/ProgressBar'
-import { CreateProfile } from '../../redux/slices/auth'
-import { useTheme } from '@emotion/react'
-import { CaretLeft } from 'phosphor-react'
-import { useNavigate } from 'react-router-dom'
-import { logOutUser } from '../../redux/slices/auth';
-import {Dialog, DialogActions, DialogContent , DialogContentText} from '@mui/material';
+import { EditProfile, logOutUser } from '../../redux/slices/auth'
 
 export default function CreateProfileForm() {
     const {isLoading, email, profileImageUrl, name, about}=useSelector((state)=>state.auth)
@@ -43,10 +41,10 @@ export default function CreateProfileForm() {
 
     const onSubmit= async(data)=>{
         try{
-            console.log(data)
+            console.log("EDIT PROFILE"+data)
             const name=data.name
             const about=data.about
-            dispatch(CreateProfile({name,about, image: selectedImage , email}))
+            dispatch(EditProfile({name,about, image: selectedImage , email}))
         }
         catch(err){
             reset();
@@ -195,11 +193,11 @@ export default function CreateProfileForm() {
           }}
         >
           {isLoading ? "Please wait..." : "Save"}
+          {isLoading && <ProgressBarIntegration isLoading={isLoading} />}
         </Button>
-        {isLoading && <ProgressBarIntegration isLoading={isLoading} />}
       </Box>
     </FormProvider>
-    <Stack direction="row" spacing={4} p={2}>
+    <Stack direction="row" spacing={4} p={2} flexGrow={1}>
         <Button color="inherit"    
           variant="contained"
           size='medium'

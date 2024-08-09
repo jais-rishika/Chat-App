@@ -1,11 +1,11 @@
 import { useTheme } from "@emotion/react";
 import { faker } from "@faker-js/faker";
-import {Avatar, Box,Stack,Typography,Divider,IconButton} from "@mui/material";
+import { Avatar, Box, Divider, IconButton, Stack, Typography } from "@mui/material";
 import { CaretDown, MagnifyingGlass, Phone, VideoCamera } from "phosphor-react";
-import StyledBadge from "../reusable/StyledBadge";
 import { useDispatch } from "react-redux";
 import { ToggleSideBar } from "../../redux/slices/app";
-const Header = () => {
+import StyledBadge from "../reusable/StyledBadge";
+const Header = (props) => {
     const theme=useTheme();
     const dispatch = useDispatch();
     const mostusedcolor=theme.palette.primary.main
@@ -35,7 +35,7 @@ const Header = () => {
                         </StyledBadge>
                     </Box>
                     <Stack direction="column" sx={{marginLeft: '15px' ,}} >
-                        <Typography variant='subtitle2'>{faker.person.firstName()}</Typography>
+                        <Typography variant='subtitle2'>{props.name}</Typography>
                         <Typography variant='caption'>Online</Typography>
                     </Stack>
                 </Stack>

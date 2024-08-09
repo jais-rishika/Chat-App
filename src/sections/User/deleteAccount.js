@@ -1,18 +1,17 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Box, Stack , Alert, Button ,IconButton ,Typography ,InputAdornment} from '@mui/material'
 import { useTheme } from '@emotion/react'
-import { CaretLeft } from 'phosphor-react'
-import FormProvider from '../../react-hook-form/FormProvider'
-import CustomTextField from '../../react-hook-form/CustomTextField'
-import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useForm } from "react-hook-form";
-import { Eye, EyeClosed } from "phosphor-react";
-import { useState } from "react";
-import { DeleteUser } from '../../redux/slices/auth'
+import { Alert, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, IconButton, InputAdornment, Stack, Typography } from '@mui/material'
+import { CaretLeft } from 'phosphor-react'
+import React, { useState } from 'react'
+import { useForm } from "react-hook-form"
 import { useDispatch, useSelector } from 'react-redux'
-import {Dialog, DialogActions, DialogContent , DialogContentText} from '@mui/material';
+import { useNavigate } from 'react-router-dom'
+import * as Yup from 'yup'
+import ProgressBarIntegration from '../../components/ProgressBar'
+import CustomTextField from '../../react-hook-form/CustomTextField'
+import FormProvider from '../../react-hook-form/FormProvider'
+import { DeleteUser } from '../../redux/slices/auth'
+
 
 
 export default function DeleteAccount() {
@@ -62,6 +61,7 @@ export default function DeleteAccount() {
     const DialoghandleClose = () => {
         setDialogOpen(false);
     };
+    const {isLoading} =useSelector((state)=> state.auth)
   return (
     <Box p={4}
         sx={{
@@ -107,7 +107,10 @@ export default function DeleteAccount() {
                         color: (theme)=>
                         theme.palette.mode==="light"? "common.white":"grey.800",
                     }
-                }}>Delete Account</Button>
+                }}>
+                    {isLoading ? "Please wait..." : "DELETE ACCOUNT "}
+                    {isLoading && <ProgressBarIntegration isLoading={isLoading} />}
+                </Button>
                 <Dialog
                     open={Dialogopen}
                     onClose={DialoghandleClose}

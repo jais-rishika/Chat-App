@@ -1,14 +1,14 @@
-import React from 'react';
-import {Box,Stack} from "@mui/material";
 import { useTheme } from '@emotion/react';
-import {Chat_History} from '../../Data/data'
+import { Box, Stack } from "@mui/material";
+import React from 'react';
+import { Chat_History } from '../../Data/data';
 import { CustomScrollbar } from '../ChatElements';
-import Timeline from './Messages/Timeline';
 import DocMsg from './Messages/DocMsg';
-import ReplyMsg from './Messages/ReplyMsg';
 import ImgMsg from './Messages/ImgMsg';
 import LinkMsg from './Messages/LinkMsg';
+import ReplyMsg from './Messages/ReplyMsg';
 import TextMsg from './Messages/TextMsg';
+import Timeline from './Messages/Timeline';
 
 
 const Message = () => {
@@ -25,22 +25,22 @@ const Message = () => {
           }}
           p={1}>
             <Stack direction='column'>
-              {Chat_History.map((msg)=>{
+              {Chat_History.map((msg, idx)=>{
                   switch(msg.type){
                     case "divider":
-                      return <Timeline ele={msg}/>
+                      return <Timeline ele={msg} key={idx}/>
                     case 'msg':
                       switch(msg.subtype){
                         case "doc":
-                          return <DocMsg ele={msg}/>
+                          return <DocMsg ele={msg} key={idx}/>
                         case "link":
-                          return <LinkMsg ele={msg}/>
+                          return <LinkMsg ele={msg} key={idx}/>
                         case "img":
-                          return <ImgMsg ele={msg}/>
+                          return <ImgMsg ele={msg} key={idx}/>
                         case "reply":
-                          return <ReplyMsg ele={msg}/>
+                          return <ReplyMsg ele={msg} key={idx}/>
                         default:
-                          return <TextMsg ele={msg}/>
+                          return <TextMsg ele={msg} key={idx}/>
                       }
                     default:
                       return <></>;

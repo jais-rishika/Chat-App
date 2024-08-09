@@ -1,6 +1,7 @@
-import {useTheme } from '@emotion/react';
-import {Box, Stack ,Avatar, Typography ,Badge} from '@mui/material';
-import {styled} from '@mui/material/styles';
+import { useTheme } from '@emotion/react';
+import { Avatar, Badge, Box, Stack, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import { useDispatch } from 'react-redux';
 import StyledBadge from './reusable/StyledBadge';
 
 export const CustomScrollbar = styled('div')({
@@ -18,10 +19,15 @@ export const CustomScrollbar = styled('div')({
   },
 });
 
-export const ChatElements = ({img,name,msg,time,unread,online}) => {
+export const ChatElements = ({id,img,name,msg,time,unread,online}) => {
     const theme=useTheme();
+    const dispatch=useDispatch();
     return (
-        <Box sx={{
+        <Box 
+        // onClick={()=>{
+        //   dispatch(SelectConversation({room_id:id}))
+        // }}
+        sx={{
             width: '100%' ,
             backgroundColor: theme.palette.mode === "light"? "#fff": theme.palette.background.default,
             borderRadius: 1.5,

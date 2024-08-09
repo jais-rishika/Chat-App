@@ -1,12 +1,12 @@
-import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useForm } from 'react-hook-form'
-import { Avatar, Box, Stack , Alert, Button} from '@mui/material'
+import { Alert, Avatar, Box, Button, Stack } from '@mui/material'
 import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
+import * as Yup from 'yup'
+import ProgressBarIntegration from '../../components/ProgressBar'
 import CustomTextField from '../../react-hook-form/CustomTextField'
 import FormProvider from '../../react-hook-form/FormProvider'
-import ProgressBarIntegration from '../../components/ProgressBar'
 import { CreateProfile } from '../../redux/slices/auth'
 
 export default function CreateProfileForm() {
@@ -117,8 +117,8 @@ export default function CreateProfileForm() {
           }}
         >
           {isLoading ? "Please wait..." : "Update"}
+          {isLoading && <ProgressBarIntegration isLoading={isLoading} />}
         </Button>
-        {isLoading && <ProgressBarIntegration isLoading={isLoading} />}
       </Box>
     </FormProvider>
   )

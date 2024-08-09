@@ -1,6 +1,6 @@
-import axios from '../../utils/axios'
 import { createSlice } from "@reduxjs/toolkit";
-import { OpenSnackBar,SnackBarSeverity,SnackBarMessage } from './app';
+import axios from '../../utils/axios';
+import { OpenSnackBar, SnackBarMessage, SnackBarSeverity } from './app';
 
 //initial state
 const initialState={
@@ -95,6 +95,11 @@ export function loginUser(formValues){
                 profileImageUrl: resp.data.url
               })
             )
+            dispatch(slice.actions.updateAbout({about: resp.data.about}))
+            dispatch(slice.actions.updateName({name: resp.data.name}))
+            dispatch(slice.actions.updateEmail({name: resp.data.email}))
+
+            window.localStorage.setItem("user_id",resp.data.user_id)
           }
           else{
             dispatch(
@@ -102,9 +107,14 @@ export function loginUser(formValues){
                 profileImageUrl: "https://res.cloudinary.com/ddncw4pqb/image/upload/v1717325773/samples/profile/profile_gvqm00.jpg"
               })
             )
-          }
             dispatch(slice.actions.updateAbout({about: resp.data.about}))
             dispatch(slice.actions.updateName({name: resp.data.name}))
+            dispatch(slice.actions.updateEmail({email: resp.data.email}))
+
+            window.localStorage.setItem("user_id",resp.data.user_id)
+
+          }
+
             dispatch(
                 slice.actions.login({
                     isLoggedIn: true,
@@ -128,6 +138,10 @@ export function loginUser(formValues){
 export function logOutUser(){
     return async(dispatch,getState)=>{
         dispatch(slice.actions.logout())
+        dispatch(slice.actions.updateAbout({about: ""}))
+        dispatch(slice.actions.updateName({name: ""}))
+        dispatch(slice.actions.updateEmail({email: ""}))
+
         window.location.href="/auth/login"
     }
 }
@@ -280,6 +294,8 @@ export function newPassword(formValues) {
         }))
           dispatchSnackBar(dispatch, resp, "success");
           dispatchIsLoading(dispatch, false);
+          window.localStorage.setItem("user_id",resp.data.user_id)
+
           window.location.href="/app"
       })
       .catch((err)=>{
@@ -291,12 +307,11 @@ export function newPassword(formValues) {
       }
     }
 
-    export function DeleteUser(formValues){
-      return async(dispatch,getState)=>{
+    export function EditProfile(formValues){
+      return async(dispatch)=>{
         dispatchIsLoading(dispatch,true)
-        axios
-        .post(
-          "/api/v1/app/delete-account",
+        axios.post(
+          "/api/v1/user/edit-profile",
           {...formValues},
           {
             headers: {
@@ -305,25 +320,57 @@ export function newPassword(formValues) {
           }
         )
         .then((resp)=>{
-          dispatch(
-            slice.actions.updateProfileUrl({
-              profileImageUrl: "https://res.cloudinary.com/ddncw4pqb/image/upload/v1717325773/samples/profile/profile_gvqm00.jpg"
-            })
-          )
-          dispatch(slice.actions.logout())
-          dispatch(slice.actions.updateAbout({about: ""}))
-          dispatch(slice.actions.updateName({name: ""}))
-          dispatch(slice.actions.updateEmail({email: ""}))
-
-          dispatchSnackBar(dispatch, resp, "error");
-          dispatchIsLoading(dispatch, false);
-          window.location.href="/auth/register"
+          console.log(resp);
+          if(resp.data.url){
+            dispatch(slice.actions.updateProfileUrl({profileImageUrl: resp.data.url}))
+            dispatch(slice.actions.updateName({name: resp.data.name}))
+            dispatch(slice.actions.updateAbout({about: resp.data.about}))
+          }
+          else{
+            dispatch(slice.actions.updateProfileUrl({profileImageUrl: "https://res.cloudinary.com/ddncw4pqb/image/upload/v1717325773/samples/profile/profile_gvqm00.jpg"}))
+            dispatch(slice.actions.updateName({name: resp.data.name}))
+            dispatch(slice.actions.updateAbout({about: resp.data.about}))
+          }
+            dispatchSnackBar(dispatch, resp, "success");
+            dispatchIsLoading(dispatch, false);
+            window.location.href="/app"
         })
-        .catch((err) => {
-          console.log(err);
-          dispatchSnackBar(dispatch, err, "error");
+        .catch((err)=>{
+          console.log(err)
+          dispatchSnackBar(dispatch, err.message, "error");
           dispatchIsLoading(dispatch, false);
-        });
-      }
-  }
+        })
   
+        }
+      }
+
+      export function DeleteUser(formValues) {
+        return async (dispatch) => {
+          dispatchIsLoading(dispatch, true);
+          await axios.post(
+              "/api/v1/user/delete-account",
+              { ...formValues },
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            )
+            .then((resp)=>{
+              dispatch(slice.actions.updateProfileUrl({ profileImageUrl: "https://res.cloudinary.com/ddncw4pqb/image/upload/v1717325773/samples/profile/profile_gvqm00.jpg" }));
+              dispatch(slice.actions.logout());
+              dispatch(slice.actions.updateAbout({ about: "" }));
+              dispatch(slice.actions.updateName({ name: "" }));
+              dispatch(slice.actions.updateEmail({ email: "" }));
+        
+              dispatchSnackBar(dispatch, resp, "success");
+              dispatchIsLoading(dispatch, false);
+              window.location.href = "/auth/register";
+            })
+            .catch((err)=>{
+              console.log(err)
+              dispatchSnackBar(dispatch, err.message, "error");
+              dispatchIsLoading(dispatch, false);
+            })
+        };
+      }

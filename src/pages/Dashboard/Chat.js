@@ -1,12 +1,11 @@
-import React from 'react';
-import {Stack,Box,Typography,IconButton, Divider, Icon } from '@mui/material';
-import {CircleDashed, MagnifyingGlass, ArchiveBox ,PushPin} from 'phosphor-react';
-import { Search ,SearchIconWrapper ,StyledInputBase} from '../../components/reusable/search';
 import { useTheme } from '@emotion/react';
-import {ChatList}from '../../Data/data';
-import {ChatElements,CustomScrollbar} from '../../components/ChatElements';
-import {navitems} from './navitems';
-import { useState } from 'react';
+import { Box, Divider, IconButton, Stack, Typography } from '@mui/material';
+import { ArchiveBox, CircleDashed, MagnifyingGlass, PushPin } from 'phosphor-react';
+import React, { useState } from 'react';
+import { ChatList } from '../../Data/data';
+import { ChatElements, CustomScrollbar } from '../../components/ChatElements';
+import { Search, SearchIconWrapper, StyledInputBase } from '../../components/reusable/search';
+import { navitems } from './navitems';
 
 
 const Chat = () => {
@@ -60,11 +59,11 @@ const Chat = () => {
                 </Stack>
 
                 <Stack direction="row" spacing={3}>
-                    {navitems.map((ele) =>
+                    {navitems.map((ele, idx) =>
                             
                             ele.index===selected?
                             (
-                                <Stack direction="row" spacing={1} alignItems="center">
+                                <Stack direction="row" spacing={1} alignItems="center" key={idx}>
                                     <Box sx={{
                                         backgroundColor:theme.palette.primary.main,
                                         borderRadius: "25%",

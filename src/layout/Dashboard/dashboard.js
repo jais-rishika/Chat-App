@@ -1,20 +1,47 @@
-import { useState } from 'react';
-import {Avatar, Box,Divider,IconButton,Stack} from '@mui/material';
-import { Gear } from 'phosphor-react';
-import eyes from "../../assets/images/eyes.jpg";
-import { sidebaritems } from './sidebarItems';
+import { Avatar, Box, IconButton, Stack } from '@mui/material';
 import { useTheme } from "@mui/material/styles";
-import useSettings from '../../hooks/useSettings';
-import AntSwitch from '../../components/reusable/AntSwitch';
-import {useSelector} from "react-redux"
+import { useState } from 'react';
+import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
+import eyes from "../../assets/images/eyes.jpg";
+import AntSwitch from '../../components/reusable/AntSwitch';
+import useSettings from '../../hooks/useSettings';
+import NotificationsDialog from '../../sections/Dialogs/NotificationsDialog';
+import UserDialog from '../../sections/Dialogs/UsersDialog';
+import { sidebaritems } from './sidebarItems';
 
 const Sidebar = () => {
+    const[selected,setSelected]=useState(0);
     const navigate=useNavigate()
     const handleClick= ()=>{
         navigate("/profile")
     }
-    const[selected,setSelected]=useState(0);
+
+    //user Dialog
+    const [userDialogOpen,setUserDialogOpen]=useState(false);
+    const closeUserDialog=()=>{
+        setUserDialogOpen(false)
+        setSelected(1)
+    }
+
+    //Notification Dialog
+    const [notificationDialogOpen,setNotificationDialogOpen]=useState(false);
+    const closeNotificationDialog=()=>{
+        setNotificationDialogOpen(false)
+        setSelected(1)
+    }
+
+    //side bar paths
+    const getPath=(index)=>{
+        switch(index){
+            case 1:
+                return '/app'
+            case 4:
+                return '/settings'
+            default:
+                return '/app'
+        }
+    }
     const theme = useTheme();
     const { onToggleMode }=useSettings();
     const {profileImageUrl}=useSelector((state)=>state.auth)
@@ -54,7 +81,7 @@ const Sidebar = () => {
                             
                             ele.index===selected?
                             (
-                                <Box  sx={{
+                                <Box key={ele.index} sx={{
                                     backgroundColor:theme.palette.primary.main,
                                     borderRadius: "25%",
                                     width: 'max-content'
@@ -71,7 +98,28 @@ const Sidebar = () => {
                             <IconButton
                                 sx={{ width: "max-content" }}
                                 key={ele.index}
-                                onClick={()=>setSelected(ele.index)}
+                                onClick={()=>{
+                                    setSelected(ele.index);
+                                    // navigate(getPath(ele.index))
+                                    switch(ele.index){
+                                        case 0:
+                                            return
+                                        case 1:
+                                            navigate(getPath(ele.index))
+                                            break;
+                                        case 2:
+                                            setUserDialogOpen(true)
+                                            break;
+                                        case 3:
+                                            setNotificationDialogOpen(true)
+                                            break;
+                                        case 4:
+                                            navigate(getPath(ele.index))
+                                            break;
+                                        default:
+                                            navigate(getPath(ele.index))
+                                    }
+                                    }}
                             >
                                 {ele.icon}
                             </IconButton>
@@ -91,12 +139,17 @@ const Sidebar = () => {
                             onClick={handleClick}
                             sx={{cursor: "pointer"}}
                         />
-                        
                     </Stack>
                     
                 </Stack>
             </Stack>
         </Box>
+        {userDialogOpen && (
+            <UserDialog open={userDialogOpen} handleClose={closeUserDialog} />
+          )}
+        {notificationDialogOpen && (
+            <NotificationsDialog open={notificationDialogOpen} handleClose={closeNotificationDialog} />
+          )}
     </Stack>
     );
 }

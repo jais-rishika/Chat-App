@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { Stack, Menu, MenuItem } from "@mui/material";
+import { Menu, MenuItem, Stack } from "@mui/material";
 import { DotsThreeVertical } from "phosphor-react";
-import { Message_options } from "../../../Data/data"
+import { useState } from "react";
+import { Message_options } from "../../../Data/data";
 
 const MessageOptions = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -33,8 +33,8 @@ const MessageOptions = () => {
         }}
       >
         <Stack spacing={1} px={1}>
-          {Message_options.map((el) => (
-            <MenuItem onClick={handleClose}>{el.title}</MenuItem>
+          {Message_options.map((el,idx) => (
+            <MenuItem onClick={handleClose} key={idx}>{el.title}</MenuItem>
           ))}
         </Stack>
       </Menu>
