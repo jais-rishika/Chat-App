@@ -1,9 +1,11 @@
-import React from 'react';
-import {Box,Stack,Typography} from "@mui/material";
 import { useTheme } from '@emotion/react';
+import { Box, Stack, Typography } from "@mui/material";
+import React from 'react';
 import MessageOptions from './messageTypes';
 
 const TextMsg = ({ele}) => {
+    console.log("good")
+    console.log(ele)
     const theme=useTheme();
     return (
             <Stack direction='row' justifyContent={ele.incoming? 'right': 'left'} p={1}> 
@@ -18,7 +20,7 @@ const TextMsg = ({ele}) => {
                 }}>
                     <Typography
                         variant='body1'
-                        color={ele.incoming? theme.palette.txt: '#fff'}
+                        color={ele.incoming? theme.palette.text: '#fff'}
                     >
                         {ele.message}
                     </Typography>

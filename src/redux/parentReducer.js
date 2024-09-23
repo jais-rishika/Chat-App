@@ -1,8 +1,8 @@
-import { combineReducers } from "@reduxjs/toolkit"
-import appReducer from "./slices/app"
-import authReducer from "./slices/auth"
+import { combineReducers } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
-
+import appReducer from "./slices/app";
+import authReducer from "./slices/auth";
+import chatReducer from "./slices/chat";
 const parentPersistConfig={
     key: "root",
     storage,
@@ -11,6 +11,7 @@ const parentPersistConfig={
 const parentReducer =combineReducers({
     app: appReducer,
     auth: authReducer,
+    chat: chatReducer
 })
 
-export {parentPersistConfig , parentReducer};
+export { parentPersistConfig, parentReducer };

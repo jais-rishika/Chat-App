@@ -44,7 +44,7 @@ export default function CreateProfileForm() {
             console.log("EDIT PROFILE"+data)
             const name=data.name
             const about=data.about
-            dispatch(EditProfile({name,about, image: selectedImage , email}))
+            dispatch(EditProfile({name,about, image: selectedImage , email:email}))
         }
         catch(err){
             reset();

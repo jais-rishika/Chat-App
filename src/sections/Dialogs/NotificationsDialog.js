@@ -11,7 +11,7 @@ const RequestList = () => {
   useEffect(() => {
     dispatch(FetchFriendsRequests());
   }, []);
- console.log("frined: "+friendRequest)
+ console.log("friend: "+friendRequest)
   return (
     <>
       {friendRequest.map((ele, idx) => {

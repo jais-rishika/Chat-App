@@ -1,6 +1,6 @@
-import React from 'react';
-import {Box,Stack,Typography,Link} from "@mui/material";
 import { useTheme } from '@emotion/react';
+import { Box, Link, Stack, Typography, alpha } from "@mui/material";
+import React from 'react';
 import MessageOptions from './messageTypes';
 
 const LinkMsg = ({ele}) => {
@@ -10,8 +10,8 @@ const LinkMsg = ({ele}) => {
       p={1.5}
       sx={{
         backgroundColor: ele.incoming
-          ? theme.palette.background.default
-          : theme.palette.primary.main,
+          ? alpha(theme.palette.background.default, 1)
+          : theme.palette.primary.main ,
         borderRadius: 1.5,
         width: "max-content",
       }}

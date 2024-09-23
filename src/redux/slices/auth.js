@@ -88,6 +88,7 @@ export function loginUser(formValues){
             }
         )
         .then((resp)=>{
+          console.log("login")
           console.log(resp.data.url)
           if(resp.data.url){
             dispatch(
@@ -97,7 +98,7 @@ export function loginUser(formValues){
             )
             dispatch(slice.actions.updateAbout({about: resp.data.about}))
             dispatch(slice.actions.updateName({name: resp.data.name}))
-            dispatch(slice.actions.updateEmail({name: resp.data.email}))
+            dispatch(slice.actions.updateEmail({email: resp.data.email}))
 
             window.localStorage.setItem("user_id",resp.data.user_id)
           }
@@ -127,6 +128,7 @@ export function loginUser(formValues){
             window.location.href="/app"
         })
         .catch((err)=>{
+          console.log("login")
             console.log(err);
             dispatchSnackBar(dispatch,err,"error")
             dispatchIsLoading(dispatch, false)
@@ -137,6 +139,7 @@ export function loginUser(formValues){
 //logout user
 export function logOutUser(){
     return async(dispatch,getState)=>{
+        window.localStorage.removeItem("user_id")
         dispatch(slice.actions.logout())
         dispatch(slice.actions.updateAbout({about: ""}))
         dispatch(slice.actions.updateName({name: ""}))
@@ -308,14 +311,15 @@ export function newPassword(formValues) {
     }
 
     export function EditProfile(formValues){
-      return async(dispatch)=>{
+      return async(dispatch, getState)=>{
         dispatchIsLoading(dispatch,true)
-        axios.post(
+        axios.put(
           "/api/v1/user/edit-profile",
           {...formValues},
           {
             headers: {
-              "Content-Type": "application/json"
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${getState().token}`
             }
           }
         )

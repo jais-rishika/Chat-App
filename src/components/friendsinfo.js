@@ -17,6 +17,7 @@ export default function Friendsinfo({ id, name, imageUrl }) {
           variant="outlined"
           onClick={() => {
             socket.emit("start_conversation", { to: id, from: user_id });
+            window.location.reload();
           }}
         >
           <Chat size={20} />

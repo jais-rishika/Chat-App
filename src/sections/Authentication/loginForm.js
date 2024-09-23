@@ -1,16 +1,16 @@
-import * as Yup from "yup"
+import { useTheme } from "@emotion/react";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from "react-hook-form"
+import { Alert, Button, IconButton, InputAdornment, Link, Stack } from "@mui/material";
+import { Eye, EyeClosed } from "phosphor-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink } from "react-router-dom";
+import * as Yup from "yup";
+import ProgressBarIntegration from '../../components/ProgressBar';
 import CustomTextField from "../../react-hook-form/CustomTextField";
 import FormProvider from "../../react-hook-form/FormProvider";
-import { Alert ,Stack,InputAdornment, IconButton, Link, Button} from "@mui/material";
-import { useState } from "react";
-import { Eye, EyeClosed } from "phosphor-react";
-import { NavLink } from "react-router-dom";
-import { useTheme } from "@emotion/react";
-import { useDispatch,useSelector } from 'react-redux'
-import { loginUser } from '../../redux/slices/auth'
-import ProgressBarIntegration from '../../components/ProgressBar'
+import { loginUser } from '../../redux/slices/auth';
 
 const LoginForm=()=>{
     
